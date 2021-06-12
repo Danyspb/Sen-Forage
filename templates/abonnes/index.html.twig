@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des Abonnements{% endblock %}
+
+{% block body %}
+    <div class="container" style="margin-top: 5%">
+        <h1>Enregistrement d'un Abonnes</h1>
+        <div class="form-group">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-4">{{ form_row(form.numero,{'attr':{'placeholder': 'Saisissez le numero'}}) }}</div>
+                <div class="col-md-6">{{ form_row(form.description,{'attr':{'placeholder': 'Saisissez la description'}}) }}</div>
+                <div class="col-md-6">{{ form_row(form.client,{'attr':{'placeholder': 'Choisissez le client'}}) }}</div>
+            </div>
+            <button type="submit" class="btn btn-success" style="margin-top: 2%">Enregistrer</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <div class="container">
+        <table class="table table-hover table-active" >
+            <tr >
+                <th>ID</th>
+                <th>NUMERO</th>
+                <th>DESCRIPTION</th>
+                <th>DATE D'ENREGISTREMENT</th>
+                <th>PRENOM</th>
+                <th>NOM</th>
+                <th>VILLAGE</th>
+                <th>ACTION</th>
+            </tr>
+            {% for abons in abon %}
+            <tr>
+                <td>{{ abons.id}}</td>
+                <td>{{ abons.numero}}</td>
+                <td>{{ abons.description}}</td>
+                <td>{{ abons.date | date('d/m/Y')}}</td>
+                <td>{{ abons.client.prenom}}</td>
+                <td>{{ abons.client.nom}}</td>
+                <td>{{ abons.client.villages}}</td>
+                <td>
+                    <a href="{{ path('abonnes_delete', {'id': abons.id})}}" class="btn btn-outline-danger">Supprimer</a>
+                   <a href="{{ path('compteur') }}" class="btn btn-outline-info"> Attribuer un Compteur</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

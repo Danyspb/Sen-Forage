@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des Factures{% endblock %}
+
+{% block body %}
+
+    <div class="container" style="margin-top: 5%">
+        <h1> La Liste des Consommateurs</h1>
+        <table class="table table-hover table-active" style="margin-top: 3%">
+            <tr>
+                <th>ID</th>
+                <th>PRENOM</th>
+                <th>NOM</th>
+                <th>VILLAGE</th>
+                <th>NUMERO COMPTEUR</th>
+                <th>LITRE</th>
+                <th>PRIX/LITRE</th>
+                <th>DATE DU RELEVE</th>
+            </tr>
+            {% for infos in info %}
+                <tr>
+                    <td>{{ infos.id}}</td>
+                    <td>{{ infos.compteur.abonnes.client.prenom}}</td>
+                    <td>{{ infos.compteur.abonnes.client.nom}}</td>
+                    <td>{{ infos.compteur.abonnes.client.villages.nom}}</td>
+                    <td>{{ infos.compteur.numcompteur}}</td>
+                    <td>{{ infos.litreconsomme}} L</td>
+                    <td>{{ infos.prix}} CFA</td>
+                    <td>{{ infos.date | date('d/m/Y') }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="container" style="margin-top: 5%">
+        <h1>Gestion des Factures</h1>
+        <div class="form-group">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-4">{{ form_row(form.consommation,{ 'label': 'Compteur' })}}</div>
+            </div>
+            <button type="submit" class="btn btn-success" style="margin-top: 2%">Facturer</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+
+    <div class="container" style="margin-top: 5%">
+        <h1> Facturations</h1>
+        <table class="table table-hover table-active" style="margin-top: 3%">
+            <tr>
+                <th>ID</th>
+                <th>PRENOM</th>
+                <th>NOM</th>
+                <th>VILLAGE</th>
+                <th>NUMERO COMPTEUR</th>
+                <th>LITRE</th>
+                <th>SOMME A PAYER</th>
+                <th>DATE LIMITE DE PAIEMENT</th>
+                <th>ACTION</th>
+            </tr>
+            {% for facs in fac %}
+                <tr>
+                    <td>{{ facs.id}}</td>
+                    <td>{{ facs.consommation.compteur.abonnes.client.prenom}}</td>
+                    <td>{{ facs.consommation.compteur.abonnes.client.nom}}</td>
+                    <td>{{ facs.consommation.compteur.abonnes.client.villages}}</td>
+                     <td>{{ facs.consommation.compteur.numcompteur}}</td>
+                    <td>{{ facs.consmensuelle}} L</td>
+                    <td>{{ facs.prix}} CFA</td>
+                    <td>{{ facs.datelimitepaye | date('d/m/Y') }}</td>
+                    <td>
+                        <a href="{{ path('facture_delete',{'id': facs.id}) }}" class="btn btn-outline-danger">Supprimer</a>
+                        <a href="{{ path('imprimer_id',{'id': facs.id }) }}"class="btn btn-outline-info">Imprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

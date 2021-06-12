@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des Consommations{% endblock %}
+{% block body %}
+
+    <div class="container">
+        <table class="table table-hover table-active" style="margin-top: 5%">
+            <h1 style="margin-top: 3%"> La Liste des Compteurs</h1>
+            <tr>
+                <th>ID</th>
+                <th>NUMERO DU COMPTEUR</th>
+                <th>PRENOM</th>
+                <th>NOM</th>
+                <th>VILLAGE</th>
+            </tr>
+            {% for comps in comp %}
+                <tr>
+                    <td>{{ comps.id }}</td>
+                    <td>{{ comps.numcompteur }}</td>
+                    <td>{{ comps.abonnes.client.prenom }}</td>
+                    <td>{{ comps.abonnes.client.nom }}</td>
+                    <td>{{ comps.abonnes.client.villages.nom }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="container" style="margin-top: 5%">
+        <h1>Consommations</h1>
+        <div class="form-group">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-4">{{ form_row(form.compteur,{'attr':{'placeholder': 'Coisissez le numreo du Compteur'}}) }}</div>
+                <div class="col-md-4">{{ form_row(form.litreconsomme,{'label': 'litres Consommes'}) }}</div>
+                <div class="col-md-4">
+                    <p class="text-capitalize text-lg-right text-info font-weight-bold" style="margin-top: 10%">Le prix est de 117cfa le litre</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">{{ form_row(form.date,{'label': 'Date du releve'}) }}</div>
+            </div>
+            <button type="submit" class="btn btn-success" style="margin-top: 5%;">Ajouter</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+
+    <div class="container" style="margin-top: 2%">
+        <h1> La Liste des Consommateurs</h1>
+        <table class="table table-hover table-active" style="margin-top: 3%">
+            <tr>
+                <th>ID</th>
+                <th>PRENOM</th>
+                <th>NOM</th>
+                <th>VILLAGE</th>
+                <th>NUMERO COMPTEUR</th>
+                <th>LITRE</th>
+                <th>PRIX/LITRE</th>
+                <th>DATE DU RELEVE</th>
+                <th>ACTION</th>
+            </tr>
+            {% for mats in mat%}
+                <tr>
+                    <td>{{ mats.id}}</td>
+                    <td>{{ mats.compteur.abonnes.client.prenom}}</td>
+                    <td>{{ mats.compteur.abonnes.client.nom}}</td>
+                    <td>{{ mats.compteur.abonnes.client.villages.nom}}</td>
+                    <td>{{ mats.compteur.numcompteur}}</td>
+                    <td>{{ mats.litreconsomme}} L</td>
+                    <td>{{ mats.prix}} CFA</td>
+                    <td>{{ mats.date | date('d/m/Y') }}</td>
+                    <td>
+                        <a href="{{ path('consommation_delete',{'id': mats.id}) }}" class="btn btn-outline-danger">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

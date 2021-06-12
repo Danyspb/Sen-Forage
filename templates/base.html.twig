@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="https://bootswatch.com/4/slate/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/mod.css') }}">
+        {% block stylesheets %}
+            <nav class = "navbar navbar-expand-lg navbar-dark bg-primary">
+                <a class="navbar-brand" href="{{ path('acceuil') }}"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Sen-Forage </font> </font> </a>
+                <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "# navbarColor01" aria-controls = "navbarColor01" aria-extended = "false" aria-label = "Basculer la navigation ">
+                    <span class = "navbar-toggler-icon"> </span>
+                </button>
+                <div class = "collapse navbar-collapse" id = "navbarColor01">
+                    <ul class = "navbar-nav mr-auto">
+                        <li class = "nav-item">
+                            <a class="nav-link" href="{{ path('clients') }}"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;">Gestion des Abonnees</font> </font>  </a>
+                        </li>
+                        <li class = "nav-item">
+                            <a class="nav-link" href="{{ path('consommation') }}"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;">Gestion de Consommations</font> </font> </a>
+                        </li>
+                        <li class = "nav-item">
+                            <a class="nav-link" href="{{ path('factures') }}"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Gestions des Factures </font> </font> </a>
+                        </li>
+                        <li class = "nav-item">
+                            <a class="nav-link" href="{{ path('reglement') }}"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Gestion des Coupures</font> </ font > </a>
+                        </li>
+                        <li class = "nav-item">
+                            <a class="nav-link" href="{{ path('ajout') }}"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;"> Gestion de l'Administration</font> </ font > </a>
+                        </li>
+                    </ul>
+                    <form method="post" action="{{ path('logout') }}">
+                        <button href="" type="submit" class = "btn btn-danger"> <font style = "vertical-align: inherit;"> <font style = "vertical-align: inherit;">Logout</font> </ font > </button>
+                    </form>
+                </div>
+            </nav>
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

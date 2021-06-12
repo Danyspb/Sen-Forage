@@ -1,0 +1,76 @@
+{% block title %}Fichier PDF{% endblock %}
+
+{% block body %}
+    <header>
+        <h1>Facture</h1>
+        <h2>SEN-FORAGE</h2>
+    </header>
+
+    <section class="flex">
+        <dl>
+            <dt>Facture #</dt>
+            <dd>22145856</dd>
+            <dd>date de facturation</dd>
+        </dl>
+    </section>
+
+    <section class="flex">
+        <dl class="bloc">
+            <dt>facture a :</dt>
+            <dd>
+                nom:
+            </dd>
+            <dd>
+                prenom:
+            </dd>
+            <dd>
+                telephone:
+            </dd>
+            <dd>
+                village:
+            </dd>
+            <dd>
+                Numero Abonnes:
+            </dd>
+            <dd>
+                Numero du compteur:
+            </dd>
+
+        </dl>
+        <dl class="bloc">
+            <dt>Description de service</dt>
+            <dd>
+                description de l'abbonement
+            </dd>
+            <dt>Periode total</dt>
+            <dd>
+                du 24 mai au 2 juin 2014
+            </dd>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Periode</th>
+                        <th>Description</th>
+                        <th>heure</th>
+                        <th>Taux</th>
+                        <th>Montant</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for tests in test %}
+                    <tr>
+                        <td>{{ test.id }}</td>
+                        <td>{{ test.datelimitepaye | date('d/m/Y') }}</td>
+                        <td>{{ test.prix }}</td>
+                        <td>{{ test.consmensuelle }}</td>
+                        <td>{{ test.datefacture | date('d/m/Y') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </dl>
+    </section>
+
+{% endblock %}
+
